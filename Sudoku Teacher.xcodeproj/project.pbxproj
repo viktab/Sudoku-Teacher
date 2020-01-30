@@ -15,6 +15,7 @@
 		3CA3C1F023E1F4E500181C75 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CA3C1EE23E1F4E500181C75 /* LaunchScreen.storyboard */; };
 		3CA3C1FB23E1F4E600181C75 /* Sudoku_TeacherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA3C1FA23E1F4E600181C75 /* Sudoku_TeacherTests.swift */; };
 		3CA3C20623E1F4E600181C75 /* Sudoku_TeacherUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA3C20523E1F4E600181C75 /* Sudoku_TeacherUITests.swift */; };
+		3CA3C21423E31BF500181C75 /* Sudoku.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA3C21323E31BF500181C75 /* Sudoku.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		3CA3C20123E1F4E600181C75 /* Sudoku TeacherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Sudoku TeacherUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CA3C20523E1F4E600181C75 /* Sudoku_TeacherUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sudoku_TeacherUITests.swift; sourceTree = "<group>"; };
 		3CA3C20723E1F4E600181C75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3CA3C21323E31BF500181C75 /* Sudoku.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sudoku.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				3CA3C1EC23E1F4E500181C75 /* Assets.xcassets */,
 				3CA3C1EE23E1F4E500181C75 /* LaunchScreen.storyboard */,
 				3CA3C1F123E1F4E500181C75 /* Info.plist */,
+				3CA3C21323E31BF500181C75 /* Sudoku.swift */,
 			);
 			path = "Sudoku Teacher";
 			sourceTree = "<group>";
@@ -261,6 +264,7 @@
 			files = (
 				3CA3C1E823E1F4E400181C75 /* ViewController.swift in Sources */,
 				3CA3C1E423E1F4E400181C75 /* AppDelegate.swift in Sources */,
+				3CA3C21423E31BF500181C75 /* Sudoku.swift in Sources */,
 				3CA3C1E623E1F4E400181C75 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
