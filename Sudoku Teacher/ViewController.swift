@@ -15,7 +15,11 @@ class ViewController: UIViewController {
     let dark_purple: UIColor = UIColor(red: 33/255, green: 4/255, blue: 46/255, alpha: 1)
     var clicked_num: Int = 0
     var adding_nums: Bool = true
-    var grid: [[Int]] = [[Int]]()
+    var grid_buttons: [UIButton] = []
+    var purple_buttons: [UIButton] = []
+    var num_buttons: [UIButton] = []
+    var main_buttons: [UIButton] = []
+    var game = Sudoku()
     @IBOutlet weak var B00: UIButton!
     @IBOutlet weak var B01: UIButton!
     @IBOutlet weak var B02: UIButton!
@@ -114,13 +118,13 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         // init buttons
-        let grid_buttons: [UIButton] = [B00, B01, B02, B03, B04, B05, B06, B07, B08, B10, B11, B12, B13, B14, B15, B16, B17, B18, B20, B21, B22, B23, B24, B25, B26, B27, B28, B30, B31, B32, B33, B34, B35, B36, B37, B38, B40, B41, B42, B43, B44, B45, B46, B47, B48, B50, B51, B52, B53, B54, B55, B56, B57, B58, B60, B61, B62, B63, B64, B65, B66, B67, B68, B70, B71, B72, B73, B74, B75, B76, B77, B78, B80, B81, B82, B83, B84, B85, B86, B87, B88]
+        grid_buttons = [B00, B01, B02, B03, B04, B05, B06, B07, B08, B10, B11, B12, B13, B14, B15, B16, B17, B18, B20, B21, B22, B23, B24, B25, B26, B27, B28, B30, B31, B32, B33, B34, B35, B36, B37, B38, B40, B41, B42, B43, B44, B45, B46, B47, B48, B50, B51, B52, B53, B54, B55, B56, B57, B58, B60, B61, B62, B63, B64, B65, B66, B67, B68, B70, B71, B72, B73, B74, B75, B76, B77, B78, B80, B81, B82, B83, B84, B85, B86, B87, B88]
         
-        let purple_buttons: [UIButton] = [B00, B01, B02, B06, B07, B08, B10, B11, B12, B16, B17, B18, B20, B21, B22, B26, B27, B28, B33, B34, B35, B43, B44, B45, B53, B54, B55, B60, B61, B62, B66, B67, B68, B70, B71, B72, B76, B77, B78, B80, B81, B82, B86, B87, B88]
+        purple_buttons = [B00, B01, B02, B06, B07, B08, B10, B11, B12, B16, B17, B18, B20, B21, B22, B26, B27, B28, B33, B34, B35, B43, B44, B45, B53, B54, B55, B60, B61, B62, B66, B67, B68, B70, B71, B72, B76, B77, B78, B80, B81, B82, B86, B87, B88]
         
-        let num_buttons: [UIButton] = [B1, B2, B3, B4, B5, B6, B7, B8, B9]
+        num_buttons = [B1, B2, B3, B4, B5, B6, B7, B8, B9]
         
-        let main_buttons: [UIButton] = [BClear, BExplain, BNext]
+        main_buttons = [BClear, BExplain, BNext]
         
         for button in grid_buttons {
             button.layer.borderColor = dark_purple.cgColor
@@ -144,19 +148,26 @@ class ViewController: UIViewController {
             button.layer.borderWidth = 1.0
             button.layer.cornerRadius = 5.0
         }
-        
-        // init grid
-        for _ in 1...9 {
-            grid.append(Array(repeating: 0, count: 9))
+    }
+    
+    func change_clicked(button: UIButton) {
+        if adding_nums {
+            button.backgroundColor = light_purple
+            for b in num_buttons {
+                if b != button {
+                    b.backgroundColor = .white
+                }
+            }
         }
     }
     
     func add_number(button: UIButton, spot: [Int]) {
         if clicked_num != 0 && adding_nums {
-            button.setTitle(String(clicked_num), for: .normal)
-            button.setTitleColor(.black, for: [])
-            grid[spot[1]][spot[0]] = clicked_num
-            print(grid)
+            if !game.breaks_rule(pos: spot, num: clicked_num) {
+                button.setTitle(String(clicked_num), for: .normal)
+                button.setTitleColor(.black, for: [])
+                game.add_number(pos: spot, num: clicked_num)
+            }
         }
     }
     
@@ -406,29 +417,38 @@ class ViewController: UIViewController {
     
     @IBAction func b1_click(_ sender: Any) {
         clicked_num = 1
+        change_clicked(button: B1)
     }
     @IBAction func b2_click(_ sender: Any) {
         clicked_num = 2
+        change_clicked(button: B2)
     }
     @IBAction func b3_click(_ sender: Any) {
         clicked_num = 3
+        change_clicked(button: B3)
     }
     @IBAction func b4_click(_ sender: Any) {
         clicked_num = 4
+        change_clicked(button: B4)
     }
     @IBAction func b5_click(_ sender: Any) {
         clicked_num = 5
+        change_clicked(button: B5)
     }
     @IBAction func b6_click(_ sender: Any) {
         clicked_num = 6
+        change_clicked(button: B6)
     }
     @IBAction func b7_click(_ sender: Any) {
         clicked_num = 7
+        change_clicked(button: B7)
     }
     @IBAction func b8_click(_ sender: Any) {
         clicked_num = 8
+        change_clicked(button: B8)
     }
     @IBAction func b9_click(_ sender: Any) {
         clicked_num = 9
+        change_clicked(button: B9)
     }
 }
