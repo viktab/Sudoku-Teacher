@@ -877,6 +877,19 @@
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x5b-rx-wX8">
+                                <rect key="frame" x="310.5" y="104" width="60" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="LXz-ax-Yt1"/>
+                                    <constraint firstAttribute="width" constant="60" id="Nie-ew-URT"/>
+                                </constraints>
+                                <state key="normal" title="Solve">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="solve_click:" destination="BYZ-38-t0r" eventType="touchDown" id="ZP1-6C-c1X"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -993,6 +1006,7 @@
                             <constraint firstItem="voj-N5-abw" firstAttribute="leading" secondItem="eBh-Qs-KfG" secondAttribute="leading" id="JMR-uQ-rfi"/>
                             <constraint firstItem="giw-8x-kfg" firstAttribute="width" secondItem="V2H-Nz-uV4" secondAttribute="width" id="JmI-6A-zVP"/>
                             <constraint firstItem="sJ0-fD-eoS" firstAttribute="leading" secondItem="0aV-EC-MeZ" secondAttribute="leading" id="Ku6-U6-YlN"/>
+                            <constraint firstItem="x5b-rx-wX8" firstAttribute="trailing" secondItem="IwA-ON-Szf" secondAttribute="trailing" id="L6r-ju-2DN"/>
                             <constraint firstItem="1sD-7Q-LLf" firstAttribute="height" secondItem="acb-xO-rdZ" secondAttribute="height" id="LI0-S2-Fln"/>
                             <constraint firstItem="4Un-n0-RBq" firstAttribute="height" secondItem="qoc-Oj-t1w" secondAttribute="height" id="LPq-oj-i04"/>
                             <constraint firstItem="fP0-Nl-p3v" firstAttribute="leading" secondItem="pKg-ma-oYm" secondAttribute="leading" id="LgT-ab-Sml"/>
@@ -1177,6 +1191,7 @@
                             <constraint firstItem="6Lg-te-0Yz" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" multiplier="1.36" id="oXM-vg-3j5"/>
                             <constraint firstItem="Bjw-Wl-0TC" firstAttribute="top" secondItem="oLX-Wi-EsJ" secondAttribute="bottom" id="obw-5l-4LN"/>
                             <constraint firstItem="qoc-Oj-t1w" firstAttribute="top" secondItem="CTK-1U-85Z" secondAttribute="bottom" id="oeO-P6-9Xh"/>
+                            <constraint firstItem="V2H-Nz-uV4" firstAttribute="top" secondItem="x5b-rx-wX8" secondAttribute="bottom" constant="10" id="oki-zN-Ibt"/>
                             <constraint firstItem="mfi-aJ-Gsl" firstAttribute="top" secondItem="uJU-qj-Qo3" secondAttribute="bottom" id="oo4-QR-GW5"/>
                             <constraint firstItem="H2X-Ri-0FN" firstAttribute="width" secondItem="6Lg-te-0Yz" secondAttribute="width" id="p8t-qW-2Fw"/>
                             <constraint firstItem="tYv-qw-DDS" firstAttribute="centerX" secondItem="PYK-jm-0H0" secondAttribute="centerX" id="pAn-vO-wMg"/>
@@ -1339,6 +1354,7 @@
                         <outlet property="BClear" destination="hAI-fe-vaV" id="WAu-b5-TtW"/>
                         <outlet property="BExplain" destination="LBd-K1-7sN" id="pLe-w7-jA5"/>
                         <outlet property="BNext" destination="IwA-ON-Szf" id="9Ih-ca-Dvf"/>
+                        <outlet property="BSolve" destination="x5b-rx-wX8" id="rBS-ON-2RO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

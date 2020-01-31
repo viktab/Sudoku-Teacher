@@ -20,6 +20,7 @@ class ViewController: UIViewController {
     var num_buttons: [UIButton] = []
     var main_buttons: [UIButton] = []
     var game = Sudoku()
+    var coord_to_bttn = [Int: UIButton]()
     @IBOutlet weak var B00: UIButton!
     @IBOutlet weak var B01: UIButton!
     @IBOutlet weak var B02: UIButton!
@@ -113,6 +114,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var BClear: UIButton!
     @IBOutlet weak var BExplain: UIButton!
     @IBOutlet weak var BNext: UIButton!
+    @IBOutlet weak var BSolve: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -124,7 +126,9 @@ class ViewController: UIViewController {
         
         num_buttons = [B1, B2, B3, B4, B5, B6, B7, B8, B9]
         
-        main_buttons = [BClear, BExplain, BNext]
+        main_buttons = [BClear, BExplain, BNext, BSolve]
+        
+        coord_to_bttn = [0: B00, 1: B01, 2: B02, 3: B03, 4: B04, 5: B05, 6: B06, 7: B07, 8: B08, 10: B10, 11: B11, 12: B12, 13: B13, 14: B14, 15: B15, 16: B16, 17: B17, 18: B18, 20: B20, 21: B21, 22: B22, 23: B23, 24: B24, 25: B25, 26: B26, 27: B27, 28: B28, 30: B30, 31: B31, 32: B32, 33: B33, 34: B34, 35: B35, 36: B36, 37: B37, 38: B38, 40: B40, 41: B41, 42: B42, 43: B43, 44: B44, 45: B45, 46: B46, 47: B47, 48: B48, 50: B50, 51: B51, 52: B52, 53: B53, 54: B54, 55: B55, 56: B56, 57: B57, 58: B58, 60: B60, 61: B61, 62: B62, 63: B63, 64: B64, 65: B65, 66: B66, 67: B67, 68: B68, 70: B70, 71: B71, 72: B72, 73: B73, 74: B74, 75: B75, 76: B76, 77: B77, 78: B78, 80: B80, 81: B81, 82: B82, 83: B83, 84: B84, 85: B85, 86: B86, 87: B87, 88: B88]
         
         for button in grid_buttons {
             button.layer.borderColor = dark_purple.cgColor
@@ -171,6 +175,19 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBAction func solve_click(_ sender: Any) {
+        let (finished, answer) = game.solve()
+        if finished {
+            print(answer)
+            for i in 0...8 {
+                for j in 0...8 {
+                    let num = game.rows[j][i]
+                    let button = coord_to_bttn[i*10+j]
+                    button?.setTitle(String(num), for: .normal)
+                }
+            }
+        }
+    }
     @IBAction func b00_click(_ sender: Any) {
         add_number(button: B00, spot: [0, 0])
     }
