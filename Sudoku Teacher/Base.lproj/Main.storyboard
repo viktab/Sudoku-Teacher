@@ -876,6 +876,9 @@
                                 <state key="normal" title="Next">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
+                                <connections>
+                                    <action selector="next_click:" destination="BYZ-38-t0r" eventType="touchUpInside" id="y9Z-sT-vd5"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x5b-rx-wX8">
                                 <rect key="frame" x="310.5" y="104" width="60" height="30"/>

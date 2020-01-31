@@ -174,14 +174,29 @@ class ViewController: UIViewController {
             }
         }
     }
+    @IBAction func next_click(_ sender: Any) {
+        let (answer, explanation) = game.next()
+        if explanation != "oof" {
+            print(explanation)
+            for i in 0...8 {
+                for j in 0...8 {
+                    let num = answer[j][i]
+                    if num != 0 {
+                        let button = coord_to_bttn[i*10+j]
+                        button?.setTitle(String(num), for: .normal)
+                    }
+                }
+            }
+        }
+    }
     
     @IBAction func solve_click(_ sender: Any) {
-        let (finished, answer) = game.solve()
+        let (finished, answer, _) = game.solve()
         if finished {
             print(answer)
             for i in 0...8 {
                 for j in 0...8 {
-                    let num = game.rows[j][i]
+                    let num = answer[j][i]
                     let button = coord_to_bttn[i*10+j]
                     button?.setTitle(String(num), for: .normal)
                 }

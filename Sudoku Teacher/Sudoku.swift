@@ -13,6 +13,7 @@ class Sudoku {
     var cols: [[Int]]
     var squares: [[Int]]
     var allowed: [Int: Set<Int>]
+    var guesses: [[[Int]]]
     init() {
         self.rows = []
         for _ in 1...9 {
@@ -40,6 +41,7 @@ class Sudoku {
                 self.allowed[i*10+j] = nums
             }
         }
+        self.guesses = []
     }
     
     init(array: [[Int]]) {
@@ -71,6 +73,7 @@ class Sudoku {
                 }
             }
         }
+        self.guesses = []
     }
     
     func copy() -> Sudoku {
@@ -135,7 +138,7 @@ class Sudoku {
         return false
     }
     
-    func assign_domains() {
+    func assign_domains(stop: Bool) -> Int {
         for i in 0...8 {
             for j in 0...8 {
                 if self.rows[j][i] == 0 {
@@ -171,8 +174,10 @@ class Sudoku {
                         }
                     }
                     if new_allowed.count == 1 {
-                        // explanation!!!!!!
                         self.add_number(pos: [i, j], num: Array(new_allowed)[0])
+                        if stop {
+                            return Array(new_allowed)[0]
+                        }
                     }
                     else {
                         self.allowed[i*10+j] = new_allowed
@@ -180,8 +185,9 @@ class Sudoku {
                 }
             }
         }
+        return 0
     }
-    func check_squares() {
+    func check_squares(stop: Bool) -> Int {
         for a in 0...8 {
             for num in 1...9 {
                 if !self.squares[a].contains(num) {
@@ -201,12 +207,16 @@ class Sudoku {
                         let j = spot[1]
                         self.add_number(pos: spot, num: num)
                         self.allowed[i*10+j] = Set<Int>()
+                        if stop {
+                            return num
+                        }
                     }
                 }
             }
         }
+        return 0
     }
-    func check_rows() {
+    func check_rows(stop: Bool) -> Int {
         for j in 0...8 {
             for num in 1...9 {
                 if !self.rows[j].contains(num) {
@@ -223,12 +233,16 @@ class Sudoku {
                         let j = spot[1]
                         self.add_number(pos: spot, num: num)
                         self.allowed[i*10+j] = Set<Int>()
+                        if stop {
+                            return num
+                        }
                     }
                 }
             }
         }
+        return 0
     }
-    func check_cols() {
+    func check_cols(stop: Bool) -> Int {
         for i in 0...8 {
             for num in 1...9 {
                 if !self.cols[i].contains(num) {
@@ -245,10 +259,14 @@ class Sudoku {
                         let j = spot[1]
                         self.add_number(pos: spot, num: num)
                         self.allowed[i*10+j] = Set<Int>()
+                        if stop {
+                            return num
+                        }
                     }
                 }
             }
         }
+        return 0
     }
     func check_blocked_cols() {
         for a in 0...8 {
@@ -320,19 +338,41 @@ class Sudoku {
             }
         }
     }
-    func solve() -> (Bool, [[Int]]) {
+    func next() -> ([[Int]], String) {
+        self.check_blocked_cols()
+        self.check_blocked_rows()
+        var num = self.assign_domains(stop: true)
+        if num != 0 {
+            return (self.rows, "Had to place a " + String(num) + " because any other number in this spot would break a rule")
+        }
+        num = self.check_squares(stop: true)
+        if num != 0 {
+            return (self.rows, "Had to place a " + String(num) + " it could not go in any other spot in this square.")
+        }
+        num = self.check_rows(stop: true)
+        if num != 0 {
+            return (self.rows, "Had to place a " + String(num) + " it could not go in any other spot in this row.")
+        }
+        num = self.check_cols(stop: true)
+        if num != 0 {
+            return (self.rows, "Had to place a " + String(num) + " it could not go in any other spot in this column.")
+        }
+        return ([[Int]](), "oof")
+    }
+    
+    func solve() -> (Bool, [[Int]], Sudoku) {
         // base case - unsolvable
         if self.unsolvable() {
-            return (false, [[Int]]())
+            return (false, [[Int]](), self)
         }
         // check for rules
         var prev = self.rows
         var finding = true
         while finding {
-            self.assign_domains()
-            self.check_squares()
-            self.check_rows()
-            self.check_cols()
+            self.assign_domains(stop: false)
+            self.check_squares(stop: false)
+            self.check_rows(stop: false)
+            self.check_cols(stop: false)
             self.check_blocked_cols()
             self.check_blocked_rows()
             if prev == self.rows {
@@ -350,10 +390,99 @@ class Sudoku {
             }
         }
         if solved {
-            return (true, self.rows)
+            return (true, self.rows, self)
+        }
+        // try to make a guess between two places in a square for one number
+        let new_game = self.copy()
+        var found = false
+        var p2 = [Int]()
+        var number = 0
+        for square in 0...8 {
+            for num in 1...9 {
+                if !self.squares[square].contains(num) {
+                    var possibilities = [[Int]]()
+                    for b in 0...8 {
+                        let pos = self.pos_from_square(square: square, index: b)
+                        let i = pos[0]
+                        let j = pos[1]
+                        if self.allowed[i*10+j] != nil && self.allowed[i*10+j]!.contains(num) {
+                            possibilities.append(pos)
+                        }
+                    }
+                    if possibilities.count == 2 {
+                        let p1 = possibilities[0]
+                        p2 = possibilities[1]
+                        number = num
+                        new_game.add_number(pos: p1, num: number)
+                        found = true
+                        break
+                    }
+                }
+            }
+            if found {
+                break
+            }
+        }
+        if found {
+            var (finished, ans, _) = new_game.solve()
+            if !finished {
+                let new_game = self.copy()
+                new_game.add_number(pos: p2, num: number)
+                (finished, ans, _) = new_game.solve()
+            }
+            return (finished, ans, self)
         }
         else {
-            return (false, [[Int]]())
+            let new_game = self.copy()
+            var found = false
+            var p2 = [Int]()
+            var p3 = [Int]()
+            var number = 0
+            for square in 0...8 {
+                for num in 1...9 {
+                    if !self.squares[square].contains(num) {
+                        var possibilities = [[Int]]()
+                        for b in 0...8 {
+                            let pos = self.pos_from_square(square: square, index: b)
+                            let i = pos[0]
+                            let j = pos[1]
+                            if self.allowed[i*10+j] != nil && self.allowed[i*10+j]!.contains(num) {
+                                possibilities.append(pos)
+                            }
+                        }
+                        if possibilities.count == 3 {
+                            let p1 = possibilities[0]
+                            p2 = possibilities[1]
+                            p3 = possibilities[2]
+                            number = num
+                            new_game.add_number(pos: p1, num: number)
+                            found = true
+                            break
+                        }
+                    }
+                }
+                if found {
+                    break
+                }
+            }
+            if found {
+                var (finished, ans, _) = new_game.solve()
+                if !finished {
+                    let new_game = self.copy()
+                    new_game.add_number(pos: p2, num: number)
+                    (finished, ans, _) = new_game.solve()
+                }
+                if !finished {
+                    let new_game = self.copy()
+                    new_game.add_number(pos: p3, num: number)
+                    (finished, ans, _) = new_game.solve()
+                }
+                return (finished, ans, self)
+            }
+            else {
+                print("rip")
+                return (false, [[Int]](), self)
+            }
         }
     }
 }
