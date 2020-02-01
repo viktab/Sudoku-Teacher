@@ -13,6 +13,9 @@ class ViewController: UIViewController {
     let light_purple: UIColor = UIColor(red: 233/255, green: 208/255, blue: 245/255, alpha: 1)
     let purple: UIColor = UIColor(red: 142/255, green: 18/255, blue: 199/255, alpha: 1)
     let dark_purple: UIColor = UIColor(red: 33/255, green: 4/255, blue: 46/255, alpha: 1)
+    let light_pink: UIColor = UIColor(red: 233/255, green: 208/255, blue: 214/255, alpha: 1)
+    let easy: [[Int]] = [[0, 1, 7, 0, 0, 0, 0, 0, 6], [0, 0, 9, 0, 0, 0, 4, 0, 5], [0, 0, 0, 4, 2, 0, 2, 3, 0], [5, 0, 4, 0, 7, 0, 3, 0, 0], [0, 0, 1, 9, 6, 0, 5, 0, 0], [0, 8, 2, 3, 4, 5, 0, 0, 0], [0, 7, 3, 0, 9, 0, 8, 6, 2], [6, 0, 5, 8, 0, 1, 7, 0, 0], [2, 0, 0, 6, 0, 0, 0, 0, 9]]
+    let hard: [[Int]] = [[1, 0, 9, 0, 5, 0, 0, 0, 0], [3, 0, 0, 7, 1, 0, 9, 0, 0], [0, 4, 0, 0, 9, 0, 0, 0, 0], [6, 0, 0, 0, 3, 0, 1, 0, 0], [0, 0, 0, 4, 0, 0, 5, 0, 0], [0, 0, 0, 0, 0, 0, 2, 9, 0], [5, 7, 0, 0, 0, 2, 0, 0, 0], [9, 0, 1, 0, 0, 0, 0, 0, 0], [4, 0, 0, 0, 7, 0, 0, 6, 9]]
     var clicked_num: Int = 0
     var adding_nums: Bool = true
     var grid_buttons: [UIButton] = []
@@ -130,15 +133,9 @@ class ViewController: UIViewController {
         
         coord_to_bttn = [0: B00, 1: B01, 2: B02, 3: B03, 4: B04, 5: B05, 6: B06, 7: B07, 8: B08, 10: B10, 11: B11, 12: B12, 13: B13, 14: B14, 15: B15, 16: B16, 17: B17, 18: B18, 20: B20, 21: B21, 22: B22, 23: B23, 24: B24, 25: B25, 26: B26, 27: B27, 28: B28, 30: B30, 31: B31, 32: B32, 33: B33, 34: B34, 35: B35, 36: B36, 37: B37, 38: B38, 40: B40, 41: B41, 42: B42, 43: B43, 44: B44, 45: B45, 46: B46, 47: B47, 48: B48, 50: B50, 51: B51, 52: B52, 53: B53, 54: B54, 55: B55, 56: B56, 57: B57, 58: B58, 60: B60, 61: B61, 62: B62, 63: B63, 64: B64, 65: B65, 66: B66, 67: B67, 68: B68, 70: B70, 71: B71, 72: B72, 73: B73, 74: B74, 75: B75, 76: B76, 77: B77, 78: B78, 80: B80, 81: B81, 82: B82, 83: B83, 84: B84, 85: B85, 86: B86, 87: B87, 88: B88]
         
-        for button in grid_buttons {
-            button.layer.borderColor = dark_purple.cgColor
-            button.layer.borderWidth = 1.0
-            button.setTitleColor(purple, for: [])
-        }
+        game = Sudoku(array: hard)
         
-        for button in purple_buttons {
-            button.backgroundColor = light_purple
-        }
+        draw_grid()
         
         for button in num_buttons {
             button.layer.borderColor = dark_purple.cgColor
@@ -151,6 +148,19 @@ class ViewController: UIViewController {
             button.backgroundColor = light_purple
             button.layer.borderWidth = 1.0
             button.layer.cornerRadius = 5.0
+        }
+    }
+    
+    func draw_grid() {
+        for button in grid_buttons {
+            button.layer.borderColor = dark_purple.cgColor
+            button.layer.borderWidth = 1.0
+            button.backgroundColor = .white
+            button.setTitleColor(purple, for: [])
+        }
+        
+        for button in purple_buttons {
+            button.backgroundColor = light_purple
         }
     }
     
@@ -175,8 +185,15 @@ class ViewController: UIViewController {
         }
     }
     @IBAction func next_click(_ sender: Any) {
-        let (answer, explanation) = game.next()
+        if adding_nums {
+            game.start()
+        }
+        let (answer, explanation, rule, spot) = game.next()
         if explanation != "oof" {
+            if adding_nums {
+                adding_nums = false
+            }
+            draw_grid()
             print(explanation)
             for i in 0...8 {
                 for j in 0...8 {
@@ -184,6 +201,189 @@ class ViewController: UIViewController {
                     if num != 0 {
                         let button = coord_to_bttn[i*10+j]
                         button?.setTitle(String(num), for: .normal)
+                        if game.start_grid[j][i] != 0 {
+                            button!.setTitleColor(.black, for: [])
+                        }
+                        else {
+                            button!.setTitleColor(purple, for: [])
+                        }
+                    }
+                }
+            }
+            let i = spot[0]
+            let j = spot[1]
+            let square = game.square_from_pos(pos: spot)
+            let a = square[0]
+            let b = square[1]
+            let assigned = answer[j][i]
+            if rule == 1 {
+                for num in 1...9 {
+                    if num != assigned {
+                        var found = false
+                        for new_b in 0...8 {
+                            let new_spot = game.pos_from_square(square: a, index: new_b)
+                            let new_i = new_spot[0]
+                            let new_j = new_spot[1]
+                            if answer[new_j][new_i] == num {
+                                let button = coord_to_bttn[new_i*10+new_j]
+                                button!.setTitleColor(.red, for: [])
+                                found = true
+                                break
+                            }
+                        }
+                        if !found {
+                            for new_i in 0...8 {
+                                if answer[j][new_i] == num {
+                                    let button = coord_to_bttn[new_i*10+j]
+                                    button!.setTitleColor(.red, for: [])
+                                    found = true
+                                    break
+                                }
+                            }
+                        }
+                        if !found {
+                            for new_j in 0...8 {
+                                if answer[new_j][i] == num {
+                                    let button = coord_to_bttn[i*10+new_j]
+                                    button!.setTitleColor(.red, for: [])
+                                    found = true
+                                    break
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else if rule == 2 {
+                let top = 3*Int(floor(Double(a)/3.0))
+                let bottom = top + 2
+                let left = 3*(a%3)
+                let right = left + 2
+                for new_b in 0...8 {
+                    if new_b != b {
+                        let new_spot = game.pos_from_square(square: a, index: new_b)
+                        let new_i = new_spot[0]
+                        let new_j = new_spot[1]
+                        var found = false
+                        for check_i in 0...8 {
+                            if check_i != i && answer[new_j][check_i] == assigned {
+                                let button = coord_to_bttn[check_i*10+new_j]
+                                button!.setTitleColor(.red, for: [])
+                                var start = 0
+                                var end = 8
+                                if check_i < left {
+                                    start = check_i
+                                    end = right
+                                }
+                                else {
+                                    start = left
+                                    end = check_i
+                                }
+                                for red_i in start...end {
+                                    let button = coord_to_bttn[red_i*10+new_j]
+                                    button!.backgroundColor = light_pink
+                                }
+                                found = true
+                                break
+                            }
+                        }
+                        if !found {
+                            for check_j in 0...8 {
+                                if check_j != j && answer[check_j][new_i] == assigned {
+                                    let button = coord_to_bttn[new_i*10+check_j]
+                                    button!.setTitleColor(.red, for: [])
+                                    var start = 0
+                                    var end = 8
+                                    if check_j < top {
+                                        start = check_j
+                                        end = bottom
+                                    }
+                                    else {
+                                        start = top
+                                        end = check_j
+                                    }
+                                    for red_j in start...end {
+                                        let button = coord_to_bttn[new_i*10+red_j]
+                                        button!.backgroundColor = light_pink
+                                    }
+                                    found = true
+                                    break
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else if rule == 3 {
+                for new_i in 0...8 {
+                    if answer[j][new_i] == 0 {
+                        var found = false
+                        for new_b in 0...8 {
+                            if new_b != b {
+                                let new_spot = game.pos_from_square(square: a, index: new_b)
+                                let check_i = new_spot[0]
+                                let check_j = new_spot[1]
+                                if answer[check_j][check_i] == assigned {
+                                    let button = coord_to_bttn[check_i*10+check_j]
+                                    button!.setTitleColor(.red, for: [])
+                                    found = true
+                                    break
+                                }
+                            }
+                        }
+                        if !found {
+                            for new_j in 0...8 {
+                                if new_j != j && answer[new_j][new_i] == assigned {
+                                    let button = coord_to_bttn[new_i*10+new_j]
+                                    button!.setTitleColor(.red, for: [])
+                                    found = true
+                                    break
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else if rule == 4 {
+                for new_j in 0...8 {
+                    if answer[new_j][i] == 0 {
+                        var found = false
+                        for new_b in 0...8 {
+                            if new_b != b {
+                                let new_spot = game.pos_from_square(square: a, index: new_b)
+                                let check_i = new_spot[0]
+                                let check_j = new_spot[1]
+                                if answer[check_j][check_i] == assigned {
+                                    print(check_i)
+                                    print(check_j)
+                                    let button = coord_to_bttn[check_i*10+check_j]
+                                    button!.setTitleColor(.red, for: [])
+                                    let red_square = game.square_from_pos(pos: [check_i, check_j])
+                                    let red_a = red_square[0]
+                                    for red_b in 0...8 {
+                                        let red_spot = game.pos_from_square(square: red_a, index: red_b)
+                                        let red_i = red_spot[0]
+                                        let red_j = red_spot[1]
+                                        let button = coord_to_bttn[red_i*10+red_j]
+                                        button!.backgroundColor = light_pink
+                                    }
+                                    found = true
+                                    break
+                                }
+                            }
+                        }
+                        if !found {
+                            for new_i in 0...8 {
+                                if new_i != i && answer[new_j][new_i] == assigned {
+                                    print(new_i)
+                                    print(new_j)
+                                    let button = coord_to_bttn[new_i*10+new_j]
+                                    button!.setTitleColor(.red, for: [])
+                                    found = true
+                                    break
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -191,7 +391,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func solve_click(_ sender: Any) {
-        let (finished, answer, _) = game.solve()
+        let (finished, answer) = game.solve()
         if finished {
             print(answer)
             for i in 0...8 {
