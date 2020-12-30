@@ -79,6 +79,44 @@ class Sudoku {
         self.start_grid = []
     }
     
+    func randomize_grid(pos: [Int]) -> Bool {
+        
+        let i = pos[0]
+        let j = pos[1]
+        
+        // base case: finished making the grid
+        if (j == 9) {
+            return true
+        }
+        
+        var nums: Set = [1,2,3,4,5,6,7,8,9]
+        
+        // try to place a random number until there's no options left
+        while (!nums.isEmpty) {
+            let num = nums.randomElement()!
+            if (!breaks_rule(pos: [i, j], num: num)) {
+                self.add_number(pos: pos, num: num)
+                var new_pos = [i, j]
+                if (i < 8) {
+                    new_pos = [i+1, j]
+                } else {
+                    new_pos = [0, j+1]
+                }
+                // recurse
+                if (randomize_grid(pos: new_pos)) {
+                    return true
+                // backtrack
+                } else {
+                    self.add_number(pos: pos, num: 0)
+                }
+            } else {
+                nums.remove(num)
+            }
+        }
+        // couldn't place any number so return false
+        return false
+    }
+    
     func copy() -> Sudoku {
         let new_game = Sudoku(array: self.rows)
         return new_game
