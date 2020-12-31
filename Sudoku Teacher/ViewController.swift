@@ -118,7 +118,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var BExplain: UIButton!
     @IBOutlet weak var BNext: UIButton!
     @IBOutlet weak var BSolve: UIButton!
+    @IBOutlet weak var Label: UILabel!
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        Label.preferredMaxLayoutWidth = 300
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -203,6 +208,7 @@ class ViewController: UIViewController {
         }
         let (answer, explanation, rule, spot) = game.next()
         if explanation != "oof" {
+            Label.text = explanation
             if adding_nums {
                 // adding_nums = false
             }
