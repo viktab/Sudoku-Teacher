@@ -45,6 +45,38 @@ class Sudoku {
         self.guesses = []
         self.start_grid = []
     }
+    init(difficulty: String) {
+        self.rows = []
+        for _ in 1...9 {
+            self.rows.append(Array(repeating: 0, count: 9))
+        }
+        self.cols = [[],[],[],[],[],[],[],[],[]]
+        for i in 0...8 {
+            for j in 0...8 {
+                self.cols[j].append(self.rows[i][j])
+            }
+        }
+        self.squares = [[],[],[],[],[],[],[],[],[]]
+        for i in 0...8 {
+            for j in 0...8 {
+                let n = floor(Double(j)/3.0)
+                let m = floor(Double(i)/3.0)
+                let index = n*3+m
+                self.squares[Int(index)].append(self.rows[j][i])
+            }
+        }
+        self.allowed = [Int: Set<Int>]()
+        let nums: Set = [1,2,3,4,5,6,7,8,9]
+        for i in 0...8 {
+            for j in 0...8 {
+                self.allowed[i*10+j] = nums
+            }
+        }
+        self.guesses = []
+        self.start_grid = []
+        self.randomize_grid(pos: [0, 0])
+        self.make_game(difficulty: difficulty)
+    }
     
     init(array: [[Int]]) {
         self.rows = array
@@ -108,6 +140,7 @@ class Sudoku {
                 // backtrack
                 } else {
                     self.add_number(pos: pos, num: 0)
+                    nums.remove(num)
                 }
             } else {
                 nums.remove(num)
@@ -115,6 +148,97 @@ class Sudoku {
         }
         // couldn't place any number so return false
         return false
+    }
+    
+    func make_game(difficulty: String) {
+        let hard: Set = [17, 18, 19]
+        let medium: Set = [26, 27, 28, 29]
+        let easy: Set = [34, 35, 36, 37]
+        var to_remove = 0
+        if (difficulty == "easy") {
+            to_remove = 81 - easy.randomElement()!
+        } else if (difficulty == "medium") {
+            to_remove = 81 - medium.randomElement()!
+        } else if (difficulty == "hard") {
+            to_remove = 81 - hard.randomElement()!
+        }
+        
+        var removed = 0
+        while (removed < to_remove) {
+            // pick random number to delete
+            let pos = get_random_pos()
+            let num = self.rows[pos[0]][pos[1]]
+            self.add_number(pos: pos, num: 0)
+            
+            // check how many solutions there are now
+            let game = self.copy()
+            let solutions = game.count_solutions(count: 0)
+            
+            // if there's multiple solutions, put the number back
+            if (solutions > 1) {
+                self.add_number(pos: pos, num: num)
+            } else {
+                removed += 1
+            }
+        }
+    }
+    
+    func count_solutions(count: Int) -> Int {
+        let pos = self.get_next_pos()
+        
+        // base case: finished making the grid
+        if (pos == [-1,-1]) {
+            return count + 1
+        }
+        
+        var my_count = count
+        for num in 1...9 {
+            if (!self.breaks_rule(pos: pos, num: num)) {
+                self.add_number(pos: pos, num: num)
+                // recurse
+                let new_count = self.count_solutions(count: my_count)
+                // backtrack if didn't find any new solutions
+                if (new_count == my_count) {
+                    self.add_number(pos: pos, num: 0)
+                }
+                my_count = new_count
+            }
+        }
+        
+        return my_count
+    }
+    
+    func get_random_pos() -> [Int] {
+        var i = 0
+        var j = 0
+        
+        var inums: Set = [0,1,2,3,4,5,6,7,8]
+        while (!inums.isEmpty) {
+            i = inums.randomElement()!
+            var jnums: Set = [0,1,2,3,4,5,6,7,8]
+            while (!jnums.isEmpty) {
+                j = jnums.randomElement()!
+                if (self.rows[j][i] != 0) {
+                    return [i,j]
+                } else {
+                    jnums.remove(j)
+                }
+            }
+            inums.remove(i)
+        }
+        return [i, j]
+    }
+    
+    func get_next_pos() -> [Int] {
+        for i in 0...8 {
+            for j in 0...8 {
+                if (self.rows[j][i] == 0) {
+                    return [i, j]
+                }
+            }
+        }
+        // signifies full grid
+        return [-1,-1]
     }
     
     func copy() -> Sudoku {
