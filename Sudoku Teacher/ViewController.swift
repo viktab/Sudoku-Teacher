@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController {
     
     let light_purple: UIColor = UIColor(red: 233/255, green: 208/255, blue: 245/255, alpha: 1)
+    let light_purple2: UIColor = UIColor(red: 203/255, green: 159/255, blue: 224/255, alpha: 1)
     let purple: UIColor = UIColor(red: 142/255, green: 18/255, blue: 199/255, alpha: 1)
     let dark_purple: UIColor = UIColor(red: 33/255, green: 4/255, blue: 46/255, alpha: 1)
     let light_pink: UIColor = UIColor(red: 233/255, green: 208/255, blue: 214/255, alpha: 1)
@@ -187,6 +188,22 @@ class ViewController: UIViewController {
             button.backgroundColor = light_purple
             for b in num_buttons {
                 if b != button {
+                    b.backgroundColor = .white
+                }
+            }
+            let num = num_buttons.firstIndex(of: button)! + 1
+            highlight_num(num: num)
+        }
+    }
+    
+    func highlight_num(num: Int) {
+        for b in grid_buttons {
+            if (b.currentTitle == String(num)) {
+                b.backgroundColor = light_purple2
+            } else {
+                if purple_buttons.contains(b) {
+                    b.backgroundColor = light_purple
+                } else {
                     b.backgroundColor = .white
                 }
             }
