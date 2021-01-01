@@ -12,7 +12,7 @@
         <!--Home Controller-->
         <scene sceneID="SeE-nH-Dtu">
             <objects>
-                <viewController id="zj4-OW-VAx" customClass="HomeController" customModule="Sudoku_Teacher" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeController" id="zj4-OW-VAx" customClass="HomeController" customModule="Sudoku_Teacher" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="YuZ-5C-LcR">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -47,11 +47,20 @@
                                     <action selector="clickHard:" destination="zj4-OW-VAx" eventType="touchDown" id="g0W-la-Vdo"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="75t-dy-eXf">
+                                <rect key="frame" x="178.5" y="732" width="57" height="30"/>
+                                <state key="normal" title="Settings"/>
+                                <connections>
+                                    <action selector="clickSettings:" destination="zj4-OW-VAx" eventType="touchDown" id="Yae-TC-Zxl"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="8s1-LV-FPg"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="QxF-s5-B3n" firstAttribute="centerX" secondItem="YuZ-5C-LcR" secondAttribute="centerX" id="6xj-9X-ymf"/>
+                            <constraint firstItem="8s1-LV-FPg" firstAttribute="bottom" secondItem="75t-dy-eXf" secondAttribute="bottom" constant="100" id="Dkg-2v-2fI"/>
+                            <constraint firstItem="75t-dy-eXf" firstAttribute="centerX" secondItem="YuZ-5C-LcR" secondAttribute="centerX" id="Edh-d1-OZg"/>
                             <constraint firstItem="QxF-s5-B3n" firstAttribute="top" secondItem="8s1-LV-FPg" secondAttribute="top" constant="100" id="GcL-Ke-NEj"/>
                         </constraints>
                     </view>
@@ -59,6 +68,7 @@
                         <outlet property="easyButton" destination="0Of-gn-I17" id="xjI-lV-TIZ"/>
                         <outlet property="hardButton" destination="pB3-fb-rvj" id="wsn-KO-1md"/>
                         <outlet property="mediumButton" destination="bai-t0-EHi" id="EM1-N2-xji"/>
+                        <outlet property="settingsButton" destination="75t-dy-eXf" id="QeZ-OS-uH9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DDe-MD-qrd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -957,6 +967,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QFG-4G-8Ka">
+                                <rect key="frame" x="190" y="782" width="34" height="30"/>
+                                <state key="normal" title="Back"/>
+                                <connections>
+                                    <action selector="back_click:" destination="BYZ-38-t0r" eventType="touchDown" id="70s-mP-s0i"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -984,6 +1001,7 @@
                             <constraint firstItem="bzg-Xn-Ubb" firstAttribute="height" secondItem="FXY-mH-ZJS" secondAttribute="height" id="2cJ-oz-ceV"/>
                             <constraint firstItem="voj-N5-abw" firstAttribute="height" secondItem="eBh-Qs-KfG" secondAttribute="height" id="2gA-3f-UvV"/>
                             <constraint firstItem="9sP-no-JOa" firstAttribute="height" secondItem="OPm-Xs-TNh" secondAttribute="height" id="2uf-5U-cdo"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="QFG-4G-8Ka" secondAttribute="bottom" constant="50" id="3Cb-pS-gfV"/>
                             <constraint firstItem="oxB-sW-ez1" firstAttribute="top" secondItem="jiw-Kh-JDi" secondAttribute="bottom" id="3DY-2N-hlS"/>
                             <constraint firstItem="H2X-Ri-0FN" firstAttribute="leading" secondItem="6Lg-te-0Yz" secondAttribute="leading" id="3F3-rS-24t"/>
                             <constraint firstItem="4Un-n0-RBq" firstAttribute="width" secondItem="qoc-Oj-t1w" secondAttribute="width" id="3ZU-GJ-nYc"/>
@@ -1065,6 +1083,7 @@
                             <constraint firstItem="nKM-MI-hGW" firstAttribute="width" secondItem="uvE-zR-NfD" secondAttribute="width" id="GT0-Nv-luE"/>
                             <constraint firstItem="x4t-gY-2OA" firstAttribute="height" secondItem="Jdb-nz-ZfM" secondAttribute="height" id="GcJ-hh-aiT"/>
                             <constraint firstItem="ma3-Y7-4DM" firstAttribute="width" secondItem="2vq-S3-om5" secondAttribute="width" id="GtX-H2-cWl"/>
+                            <constraint firstItem="QFG-4G-8Ka" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="HfK-gh-4TI"/>
                             <constraint firstItem="LBd-K1-7sN" firstAttribute="height" secondItem="hAI-fe-vaV" secondAttribute="height" id="Hjz-eg-EgS"/>
                             <constraint firstItem="6ED-mP-olL" firstAttribute="width" secondItem="3YJ-9G-QvM" secondAttribute="width" id="I0e-Wv-sva"/>
                             <constraint firstItem="uJU-qj-Qo3" firstAttribute="top" secondItem="g1Y-qr-1aJ" secondAttribute="bottom" id="IEj-BB-sCo"/>
@@ -1420,6 +1439,7 @@
                         <outlet property="B87" destination="Fme-Qd-bFd" id="Nkb-Ns-yaw"/>
                         <outlet property="B88" destination="c4g-Lg-Oe9" id="Vn8-wR-33e"/>
                         <outlet property="B9" destination="Bf9-p1-r9K" id="S8D-qi-mZA"/>
+                        <outlet property="BBack" destination="QFG-4G-8Ka" id="Dgr-3U-L3K"/>
                         <outlet property="BClear" destination="hAI-fe-vaV" id="WAu-b5-TtW"/>
                         <outlet property="BExplain" destination="LBd-K1-7sN" id="pLe-w7-jA5"/>
                         <outlet property="BNext" destination="IwA-ON-Szf" id="9Ih-ca-Dvf"/>
@@ -1430,6 +1450,50 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="115.84821428571428"/>
+        </scene>
+        <!--Settings Controller-->
+        <scene sceneID="uDq-2A-anq">
+            <objects>
+                <viewController storyboardIdentifier="SettingsController" id="8rV-d6-Lf9" customClass="SettingsController" customModule="Sudoku_Teacher" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rDf-1s-kJM">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gbR-Ph-qYf">
+                                <rect key="frame" x="162.5" y="144" width="89" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Unt-Dm-WZF">
+                                <rect key="frame" x="0.0" y="243" width="414" height="162"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </pickerView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MAx-Hl-s9t">
+                                <rect key="frame" x="190" y="732" width="34" height="30"/>
+                                <state key="normal" title="Back"/>
+                                <connections>
+                                    <action selector="clickBack:" destination="8rV-d6-Lf9" eventType="touchDown" id="WgR-R8-GqW"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="0Ba-VG-M85"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="gbR-Ph-qYf" firstAttribute="top" secondItem="0Ba-VG-M85" secondAttribute="top" constant="100" id="5e0-Wd-obS"/>
+                            <constraint firstItem="0Ba-VG-M85" firstAttribute="bottom" secondItem="MAx-Hl-s9t" secondAttribute="bottom" constant="100" id="G1n-BS-0tJ"/>
+                            <constraint firstItem="MAx-Hl-s9t" firstAttribute="centerX" secondItem="rDf-1s-kJM" secondAttribute="centerX" id="Msh-iz-PjE"/>
+                            <constraint firstItem="gbR-Ph-qYf" firstAttribute="centerX" secondItem="rDf-1s-kJM" secondAttribute="centerX" id="vOy-qP-PwE"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="backButton" destination="MAx-Hl-s9t" id="dwY-aX-aoG"/>
+                        <outlet property="colorPicker" destination="Unt-Dm-WZF" id="ebq-lf-iNo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Z4n-Yb-Ru6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1016" y="116"/>
         </scene>
     </scenes>
     <resources>

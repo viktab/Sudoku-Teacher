@@ -100,114 +100,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "AA8691FD-234F-4C88-9C62-84AE621E54DD"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Sudoku Teacher/ViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "13"
-            endingLineNumber = "13"
-            landmarkName = "ViewController"
-            landmarkType = "3">
-            <Locations>
-               <Location
-                  uuid = "AA8691FD-234F-4C88-9C62-84AE621E54DD - 48a6338cc7f456e2"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Sudoku_Teacher.ViewController.clicked_num.getter : Swift.Int"
-                  moduleName = "Sudoku Teacher"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vik/Desktop/CS_stuff/2-Sophomore%20Year/Sudoku%20Teacher/Sudoku%20Teacher/ViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "13"
-                  endingLineNumber = "13"
-                  offsetFromSymbolStart = "110">
-               </Location>
-               <Location
-                  uuid = "AA8691FD-234F-4C88-9C62-84AE621E54DD - 83a817cd69149af6"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Sudoku_Teacher.ViewController.clicked_num.setter : Swift.Int"
-                  moduleName = "Sudoku Teacher"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vik/Desktop/CS_stuff/2-Sophomore%20Year/Sudoku%20Teacher/Sudoku%20Teacher/ViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "13"
-                  endingLineNumber = "13"
-                  offsetFromSymbolStart = "118">
-               </Location>
-               <Location
-                  uuid = "AA8691FD-234F-4C88-9C62-84AE621E54DD - c586567b1276a5b2"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Sudoku_Teacher.ViewController.clicked_num.modify : Swift.Int"
-                  moduleName = "Sudoku Teacher"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vik/Desktop/CS_stuff/2-Sophomore%20Year/Sudoku%20Teacher/Sudoku%20Teacher/ViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "18">
-               </Location>
-               <Location
-                  uuid = "AA8691FD-234F-4C88-9C62-84AE621E54DD - 8ac24f0be5c059f6"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Sudoku_Teacher.ViewController.clicked_num.modify : Swift.Int with unmangled suffix &quot;.resume.0&quot;"
-                  moduleName = "Sudoku Teacher"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vik/Desktop/CS_stuff/2-Sophomore%20Year/Sudoku%20Teacher/Sudoku%20Teacher/ViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "13"
-                  endingLineNumber = "13"
-                  offsetFromSymbolStart = "4">
-               </Location>
-               <Location
-                  uuid = "AA8691FD-234F-4C88-9C62-84AE621E54DD - e6944ef5a9c2859c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Sudoku_Teacher.ViewController.init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__C.NSBundle&gt;) -&gt; Sudoku_Teacher.ViewController"
-                  moduleName = "Sudoku Teacher"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vik/Desktop/CS_stuff/2-Sophomore%20Year/Sudoku%20Teacher/Sudoku%20Teacher/ViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "13"
-                  endingLineNumber = "13"
-                  offsetFromSymbolStart = "182">
-               </Location>
-               <Location
-                  uuid = "AA8691FD-234F-4C88-9C62-84AE621E54DD - d1f2438f9d777958"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Sudoku_Teacher.ViewController.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;Sudoku_Teacher.ViewController&gt;"
-                  moduleName = "Sudoku Teacher"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vik/Desktop/CS_stuff/2-Sophomore%20Year/Sudoku%20Teacher/Sudoku%20Teacher/ViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "13"
-                  endingLineNumber = "13"
-                  offsetFromSymbolStart = "117">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "72947B11-FCAB-4593-8B4B-35776DB81370"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -215,8 +107,8 @@
             filePath = "Sudoku Teacher/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "29"
-            endingLineNumber = "29"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
             landmarkName = "ViewController"
             landmarkType = "3">
          </BreakpointContent>
